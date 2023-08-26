@@ -1,2 +1,2 @@
 # Isoland2Demo
-迷失岛2Demo 个人学习使用
+Isoland2Demo 学习记录
