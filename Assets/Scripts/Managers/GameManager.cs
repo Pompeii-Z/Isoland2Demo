@@ -7,3 +7,4 @@ public class GameManager : MonoBehaviour
         EventHandler.CallGameStateChangeEvent(GameState.GamePlay);
     }
 }
+   
