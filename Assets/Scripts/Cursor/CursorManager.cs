@@ -8,11 +8,11 @@ public class CursorManager : Singleton<CursorManager>
 
     private bool canClick = false;
 
-    public RectTransform hand;
+    public RectTransform hand;  //选取道具后手的UI
 
-    private ItemName currentItem;
+    private ItemName currentItem;   
 
-    private bool holdItem;
+    private bool holdItem; //是否选择Item
 
     private void OnEnable()
     {
@@ -28,7 +28,7 @@ public class CursorManager : Singleton<CursorManager>
     private void Update()
     {
         canClick = ObjectAtMousePosition();
-        if (hand.gameObject.activeInHierarchy)
+        if (hand.gameObject.activeInHierarchy)//手UI与鼠标跟随
         {
             hand.position = Input.mousePosition;
         }
@@ -38,6 +38,10 @@ public class CursorManager : Singleton<CursorManager>
         }
     }
 
+    /// <summary>
+    /// 已使用Item
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnItemUsedEvent(ItemName obj)
     {
         currentItem = ItemName.none;
@@ -46,7 +50,7 @@ public class CursorManager : Singleton<CursorManager>
     }
 
     /// <summary>
-    /// 拾取Item
+    /// 选择Item 激活手的UI 并把Item名赋值在ClickAction判断使用
     /// </summary>
     /// <param name="itemDetails"></param>
     /// <param name="isSelected"></param>

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 
+/// <summary>
+/// 逻辑部分
+/// </summary>
 public class InventoryManager : Singleton<InventoryManager>
 {
     public ItemDataList_SO itemData;
@@ -25,6 +28,9 @@ public class InventoryManager : Singleton<InventoryManager>
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
     }
 
+    /// <summary>
+    /// 场景加载之后
+    /// </summary>
     private void OnAfterSceneLoadedEvent()
     {
         if (itemList.Count == 0)
@@ -38,6 +44,10 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    /// <summary>
+    /// 更改显示的道具
+    /// </summary>
+    /// <param name="index"></param>
     private void OnChangeItemEvent(int index)
     {
         if (index >= 0 && index < itemList.Count)
@@ -47,17 +57,20 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    /// <summary>
+    /// 使用道具
+    /// </summary>
+    /// <param name="itemName"></param>
     private void OnItemUsedEvent(ItemName itemName)
     {
         var index = GetItemIndex(itemName);
         itemList.RemoveAt(index);
-        //TODO:单一使用物品效果
+        //单一使用物品效果
         if (itemList.Count == 0)
         {
             EventHandler.CallUpdateUIEvent(null, -1);
         }
     }
-
 
     /// <summary>
     /// 添加物品
@@ -74,9 +87,23 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
+    /// <summary>
+    /// 获取道具索引
+    /// </summary>
+    /// <param name="itemName"></param>
+    /// <returns></returns>
     private int GetItemIndex(ItemName itemName)
     {
         return itemList.IndexOf(itemName);
+    }
+
+    /// <summary>
+    /// 获取总的道具数
+    /// </summary>
+    /// <returns></returns>
+    public int GetListCount()
+    {
+        return itemList.Count;
     }
 }
 

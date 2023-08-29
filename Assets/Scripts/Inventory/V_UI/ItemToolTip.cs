@@ -1,10 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 道具提示UI
+/// </summary>
 public class ItemToolTip : MonoBehaviour
 {
     public Text itemNameText;
 
+    /// <summary>
+    /// 更新道具提示UI
+    /// </summary>
+    /// <param name="itemName"></param>
     public void UpdateItemName(ItemName itemName)
     {
         //语法糖

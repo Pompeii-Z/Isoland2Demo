@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 道具管理 是否激活 是否已经使用
+/// </summary>
 public class ObjectManager : Singleton<ObjectManager>
 {
     /// <summary>
@@ -26,6 +29,7 @@ public class ObjectManager : Singleton<ObjectManager>
     /// </summary>
     private void OnBeforeSceneLoadedEvent()
     {
+        //显隐
         foreach (var item in FindObjectsOfType<Item>())
         {
             if (!itemAvailableDict.ContainsKey(item.itemName))
@@ -33,7 +37,7 @@ public class ObjectManager : Singleton<ObjectManager>
                 itemAvailableDict.Add(item.itemName, true);
             }
         }
-
+        //使用
         foreach (var item in FindObjectsOfType<Interactive>())
         {
             if (interactiveStateDict.ContainsKey(item.name))
@@ -47,7 +51,8 @@ public class ObjectManager : Singleton<ObjectManager>
     /// 进入新场景后：第一次记录Item状态，第X次根据状态信息控制显隐
     /// </summary>
     private void OnAfterSceneLoadedEvent()
-    {
+    {   
+        //显隐
         foreach (var item in FindObjectsOfType<Item>())
         {
             //不在就添加，存在则更新状态
@@ -60,7 +65,7 @@ public class ObjectManager : Singleton<ObjectManager>
                 item.gameObject.SetActive(itemAvailableDict[item.itemName]);
             }
         }
-
+        //使用
         foreach (var item in FindObjectsOfType<Interactive>())
         {
             if (interactiveStateDict.ContainsKey(item.name))

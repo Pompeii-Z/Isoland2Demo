@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
-/// 道具
+/// 道具插槽 UI部分
 /// </summary>
 public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -15,7 +15,7 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public ItemToolTip itemToolTip;
 
     /// <summary>
-    /// 设置对应道具的sprite和尺寸
+    /// 设置对应道具UI的sprite和尺寸
     /// </summary>
     /// <param name="itemDetails"></param>
     public void SetItem(ItemDetails itemDetails)
@@ -33,10 +33,11 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         this.gameObject.SetActive(false);
         itemImage.sprite = null;
+        isSelected = false;
     }
 
     /// <summary>
-    /// 点击事件
+    /// 点击事件，选择/取消选择 道具。
     /// </summary>
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
@@ -45,6 +46,10 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         EventHandler.CallItemSelectedEvent(currentItem, isSelected);
     }
 
+    /// <summary>
+    /// 鼠标进入，更新提示UI
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (this.gameObject.activeInHierarchy)
@@ -54,6 +59,10 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         }
     }
 
+    /// <summary>
+    /// 鼠标退出，关闭提示UI
+    /// </summary>
+    /// <param name="eventData"></param>
     public void OnPointerExit(PointerEventData eventData)
     {
         itemToolTip.gameObject.SetActive(false);

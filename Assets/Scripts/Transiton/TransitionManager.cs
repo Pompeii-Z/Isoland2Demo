@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,14 +10,30 @@ public class TransitionManager : Singleton<TransitionManager>
     private bool isFade;
     public float fadeDuration;
 
+    private bool canTransition;     //对话时控制
+
     private void Start()
     {// Debug.Log(SceneManager.sceneCount);//长度  
         StartCoroutine(TransitionToScene(string.Empty, startScene));
     }
+    private void OnEnable()
+    {
+        EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+    }
+
+    private void OnGameStateChangedEvent(GameState gameState)
+    {
+        canTransition = gameState == GameState.GamePlay;
+    }
 
     public void Transition(string From, string To)
     {
-        if (!isFade)
+        if (!isFade && canTransition)
             StartCoroutine(TransitionToScene(From, To));
     }
 
@@ -30,7 +45,7 @@ public class TransitionManager : Singleton<TransitionManager>
         {
             EventHandler.CallBeforeSceneUnLoadEvent();
             yield return SceneManager.UnloadSceneAsync(From);
-        } 
+        }
 
         yield return SceneManager.LoadSceneAsync(To, LoadSceneMode.Additive);
 

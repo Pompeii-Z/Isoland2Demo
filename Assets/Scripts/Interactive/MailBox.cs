@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 信箱 子类
+/// </summary>
 public class MailBox : Interactive
 {
     private SpriteRenderer spriteRenderer;
@@ -25,6 +26,9 @@ public class MailBox : Interactive
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
     }
 
+    /// <summary>
+    /// 场景加载之后 判断是否已经交互过
+    /// </summary>
     private void OnAfterSceneLoadedEvent()
     {
         if (!isDone)
@@ -38,7 +42,9 @@ public class MailBox : Interactive
         }
     }
 
-
+    /// <summary>
+    /// 正确的道具执行
+    /// </summary>
     protected override void OnClickedAction()
     {
         spriteRenderer.sprite = openSprite;
