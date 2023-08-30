@@ -77,6 +77,4 @@ public class InventoryUI : MonoBehaviour
         // 触发物品切换事件
         EventHandler.CallChangeItemEvent(index);
     }
-
-
 }

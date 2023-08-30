@@ -10,22 +10,37 @@ public class TransitionManager : Singleton<TransitionManager>
     private bool isFade;
     public float fadeDuration;
 
-    private bool canTransition;     //对话时控制
+    /// <summary>
+    /// 根据游戏状态判断是否可以传送
+    /// </summary>
+    private bool canTransition;     
 
     private void Start()
     {// Debug.Log(SceneManager.sceneCount);//长度  
-        StartCoroutine(TransitionToScene(string.Empty, startScene));
+        //StartCoroutine(TransitionToScene(string.Empty, startScene));
     }
     private void OnEnable()
     {
         EventHandler.GameStateChangedEvent += OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnDisable()
     {
         EventHandler.GameStateChangedEvent -= OnGameStateChangedEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
+    private void OnStartNewGameEvent(int gameWeek)
+    {
+        StartCoroutine(TransitionToScene("Menu", startScene));
+    }
+
+
+    /// <summary>
+    /// 需要时订阅事件，根据游戏状态在某些时候可以或不可以做什么。
+    /// </summary>
+    /// <param name="gameState"></param>
     private void OnGameStateChangedEvent(GameState gameState)
     {
         canTransition = gameState == GameState.GamePlay;

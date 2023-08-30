@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [CreateAssetMenu(fileName = "GameH2A_SO", menuName = "Mini Game/GameH2A_SO")]
 public class GameH2A_SO : ScriptableObject
 {
+    public string gameName;
+
     [Header("球的名字和对应的图片")]
     public List<BallDetails> ballDetails;
 
     [Header("游戏逻辑数据")]
-    public List<Conections> lineConections;     //位置的对应关系
+    public List<Conections> lineConections;     //球位置的对应关系
     public List<BallName> startBallOrder;       //开始时的球顺序
 
     /// <summary>

@@ -22,6 +22,13 @@ public class ObjectManager : Singleton<ObjectManager>
         EventHandler.BeforeSceneUnLoadEvent += OnBeforeSceneLoadedEvent;
         EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
         EventHandler.UpdateItemStatusEvent += OnUpdateItemStatusEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
+    }
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        itemAvailableDict.Clear();
+        interactiveStateDict.Clear();
     }
 
     /// <summary>
@@ -94,6 +101,7 @@ public class ObjectManager : Singleton<ObjectManager>
         EventHandler.BeforeSceneUnLoadEvent -= OnBeforeSceneLoadedEvent;
         EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
         EventHandler.UpdateItemStatusEvent -= OnUpdateItemStatusEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
 }

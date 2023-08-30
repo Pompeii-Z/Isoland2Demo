@@ -6,7 +6,7 @@ public class Ball : MonoBehaviour
 
     public BallDetails ballDetails;
 
-    public bool isMatch;
+    public bool isMatch;        //是否匹配
 
     private void Awake()
     {
@@ -25,15 +25,20 @@ public class Ball : MonoBehaviour
             SetRight();
         else
             SetWrong();
-
     }
 
-    private void SetWrong()
+    /// <summary>
+    /// 设置错误图片
+    /// </summary>
+    public void SetWrong()
     {
         spriteRenderer.sprite = ballDetails.wrongSprite;
     }
 
-    private void SetRight()
+    /// <summary>
+    /// 设置正确图片
+    /// </summary>
+    public void SetRight()
     {
         spriteRenderer.sprite = ballDetails.rightSprite;
     }

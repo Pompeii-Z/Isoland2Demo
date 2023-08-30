@@ -1,7 +1,9 @@
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+/// <summary>
+/// 鼠标点击入口管理
+/// </summary>
 public class CursorManager : Singleton<CursorManager>
 {
     private Vector3 mouseWorldPos => Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));//得到鼠标在屏幕的世界坐标  => 等于 get
@@ -10,7 +12,7 @@ public class CursorManager : Singleton<CursorManager>
 
     public RectTransform hand;  //选取道具后手的UI
 
-    private ItemName currentItem;   
+    private ItemName currentItem;
 
     private bool holdItem; //是否选择Item
 
@@ -32,6 +34,9 @@ public class CursorManager : Singleton<CursorManager>
         {
             hand.position = Input.mousePosition;
         }
+
+        if (InteractWithUI()) return;
+
         if (canClick && Input.GetMouseButtonDown(0))
         {
             ClickAction(ObjectAtMousePosition().gameObject);
@@ -100,4 +105,18 @@ public class CursorManager : Singleton<CursorManager>
         return Physics2D.OverlapPoint(mouseWorldPos);
     }
 
+    /// <summary>
+    /// 是否有指针悬停在 UI 对象上
+    /// </summary>
+    /// <returns></returns>
+    private bool InteractWithUI()
+    {
+        //存在EventSystem实例，且检查鼠标指针（或触摸输入）是否当前悬停在场景中的 UI 元素上
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return true;
+        }
+        else
+            return false;
+    }
 }

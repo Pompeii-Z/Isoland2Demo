@@ -6,14 +6,14 @@ using UnityEngine;
 public class MailBox : Interactive
 {
     private SpriteRenderer spriteRenderer;
-    private BoxCollider2D collider;
+    private BoxCollider2D mailBox_collider;
 
     public Sprite openSprite;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
+        mailBox_collider = GetComponent<BoxCollider2D>();
     }
 
     private void OnEnable()
@@ -38,7 +38,7 @@ public class MailBox : Interactive
         else
         {
             spriteRenderer.sprite = openSprite;
-            collider.enabled = false;
+            mailBox_collider.enabled = false;
         }
     }
 

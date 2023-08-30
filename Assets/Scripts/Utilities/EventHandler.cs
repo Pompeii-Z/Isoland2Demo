@@ -63,10 +63,31 @@ public static class EventHandler
     }
 
     public static event Action<GameState> GameStateChangedEvent;
+    /// <summary>
+    /// 游戏状态改变
+    /// </summary>
+    /// <param name="gameState"></param>
     public static void CallGameStateChangeEvent(GameState gameState)
     {
         GameStateChangedEvent?.Invoke(gameState);
     }
 
+    public static event Action CheckGameStateEvent;
+    public static void CallCheckGameStateEvent()
+    { 
+        CheckGameStateEvent?.Invoke();
+    }
+
+    public static event Action<string> GamePassEvent;
+    public static void CallGamePassEvent(string gameName)
+    {
+        GamePassEvent?.Invoke(gameName);
+    }
+
+    public static event Action<int> StartNewGameEvent;
+    public static void CallStartNewGameEvent(int gameWeek)
+    {
+        StartNewGameEvent?.Invoke(gameWeek);
+    }
 
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(DialogueController))]
+//老奶奶 对话
 public class CharacterH2 : Interactive
 {
      private DialogueController dialogueController;
