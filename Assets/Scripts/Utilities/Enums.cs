@@ -4,11 +4,11 @@ public enum ItemName
 }
 
 public enum GameState
-{ 
-    Pause,GamePlay
+{
+    Pause, GamePlay
 }
 
 public enum BallName
-{  
-    None,B1,B2,B3,B4,B5,B6
+{
+    None, B1, B2, B3, B4, B5, B6
 }

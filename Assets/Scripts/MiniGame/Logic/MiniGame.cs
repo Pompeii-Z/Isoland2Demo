@@ -16,7 +16,7 @@ public class MiniGame : MonoBehaviour
         if (isPass)
         {
             GetComponent<Collider2D>().enabled = false;
-            GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             OnGameFinish?.Invoke();
         }
     }

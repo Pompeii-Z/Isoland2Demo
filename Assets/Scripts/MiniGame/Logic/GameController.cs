@@ -17,8 +17,8 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-        DrawLine();
-        CreateBall();
+        //DrawLine();
+        //CreateBall();
     }
     private void OnEnable()
     {

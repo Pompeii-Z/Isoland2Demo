@@ -2,22 +2,24 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TransitionManager : Singleton<TransitionManager>
+public class TransitionManager : Singleton<TransitionManager>, ISaveable
 {
     public string startScene;
 
-    public CanvasGroup canvasGroup;
+    public CanvasGroup fadeCanvasGroup;
     private bool isFade;
     public float fadeDuration;
 
     /// <summary>
     /// 根据游戏状态判断是否可以传送
     /// </summary>
-    private bool canTransition;     
+    private bool canTransition;
 
     private void Start()
     {// Debug.Log(SceneManager.sceneCount);//长度  
         //StartCoroutine(TransitionToScene(string.Empty, startScene));
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
     }
     private void OnEnable()
     {
@@ -31,11 +33,14 @@ public class TransitionManager : Singleton<TransitionManager>
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
+    /// <summary>
+    /// 根据游戏周目加载初始化场景
+    /// </summary>
+    /// <param name="gameWeek"></param>
     private void OnStartNewGameEvent(int gameWeek)
     {
         StartCoroutine(TransitionToScene("Menu", startScene));
     }
-
 
     /// <summary>
     /// 需要时订阅事件，根据游戏状态在某些时候可以或不可以做什么。
@@ -76,19 +81,30 @@ public class TransitionManager : Singleton<TransitionManager>
     {
         isFade = true;
 
-        canvasGroup.blocksRaycasts = true;
+        fadeCanvasGroup.blocksRaycasts = true;
 
-        float speed = Mathf.Abs(canvasGroup.alpha - targetAlpha) / fadeDuration;
+        float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / fadeDuration;
         //Approximately() 比较两个浮点值是否相似，相似返回true
-        while (!Mathf.Approximately(canvasGroup.alpha, targetAlpha))
+        while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
         {
-            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, targetAlpha, speed * Time.deltaTime);
+            fadeCanvasGroup.alpha = Mathf.MoveTowards(fadeCanvasGroup.alpha, targetAlpha, speed * Time.deltaTime);
             yield return null;
         }
 
-        canvasGroup.blocksRaycasts = false;
+        fadeCanvasGroup.blocksRaycasts = false;
 
         isFade = false;
     }
 
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.currentScene = SceneManager.GetActiveScene().name;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        Transition("Menu", saveData.currentScene);
+    }
 }

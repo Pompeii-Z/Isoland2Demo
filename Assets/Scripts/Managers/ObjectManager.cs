@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 /// <summary>
 /// 道具管理 是否激活 是否已经使用
 /// </summary>
-public class ObjectManager : Singleton<ObjectManager>
+public class ObjectManager : Singleton<ObjectManager>, ISaveable
 {
     /// <summary>
     /// 存储Item的显隐状态
@@ -25,6 +23,16 @@ public class ObjectManager : Singleton<ObjectManager>
         EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
+    void Start()
+    {
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+    }
+
+    /// <summary>
+    /// 加载不同周目的要清空数据
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnStartNewGameEvent(int obj)
     {
         itemAvailableDict.Clear();
@@ -58,7 +66,7 @@ public class ObjectManager : Singleton<ObjectManager>
     /// 进入新场景后：第一次记录Item状态，第X次根据状态信息控制显隐
     /// </summary>
     private void OnAfterSceneLoadedEvent()
-    {   
+    {
         //显隐
         foreach (var item in FindObjectsOfType<Item>())
         {
@@ -104,4 +112,18 @@ public class ObjectManager : Singleton<ObjectManager>
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.itemAvailableDict = this.itemAvailableDict;
+        saveData.interactiveStateDict = this.interactiveStateDict;
+
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        this.itemAvailableDict = saveData.itemAvailableDict;
+        this.interactiveStateDict = saveData.interactiveStateDict;
+    }
 }

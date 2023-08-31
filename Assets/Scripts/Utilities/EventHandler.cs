@@ -14,8 +14,8 @@ public static class EventHandler
     public static void CallUpdateUIEvent(ItemDetails itemDetails, int index)
     {
         UpdateUIEvent?.Invoke(itemDetails, index);
-    }   
-  
+    }
+
     public static event Action<ItemDetails> UpdateItemStatusEvent;
     /// <summary>
     /// 拾取Item后，更新Item的激活状态为false的事件
@@ -40,7 +40,7 @@ public static class EventHandler
 
     public static event Action<ItemDetails, bool> ItemSelectedEvent;
     public static void CallItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
-    { 
+    {
         ItemSelectedEvent?.Invoke(itemDetails, isSelected);
     }
 
@@ -74,7 +74,7 @@ public static class EventHandler
 
     public static event Action CheckGameStateEvent;
     public static void CallCheckGameStateEvent()
-    { 
+    {
         CheckGameStateEvent?.Invoke();
     }
 
@@ -84,6 +84,9 @@ public static class EventHandler
         GamePassEvent?.Invoke(gameName);
     }
 
+    /// <summary>
+    /// 加载新游戏,需要有更改游戏数据 都要订阅此事件
+    /// </summary>
     public static event Action<int> StartNewGameEvent;
     public static void CallStartNewGameEvent(int gameWeek)
     {

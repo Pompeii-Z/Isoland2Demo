@@ -3,7 +3,7 @@ using System.Collections.Generic;
 /// <summary>
 /// 逻辑部分
 /// </summary>
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>,ISaveable
 {
     public ItemDataList_SO itemData;
 
@@ -11,6 +11,9 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void Start()
     {
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+
         EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(ItemName.none), 0);
     }
 
@@ -30,6 +33,10 @@ public class InventoryManager : Singleton<InventoryManager>
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
+    /// <summary>
+    /// 加载不同周目的要清空数据
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnStartNewGameEvent(int obj)
     {
         itemList.Clear();
@@ -111,6 +118,18 @@ public class InventoryManager : Singleton<InventoryManager>
     public int GetListCount()
     {
         return itemList.Count;
+    }
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.itemList = this.itemList;
+        return saveData;
+    }
+
+    public void RestoreGameData(GameSaveData saveData)
+    {
+        this.itemList = saveData.itemList;
     }
 }
 
