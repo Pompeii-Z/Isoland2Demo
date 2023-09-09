@@ -19,6 +19,9 @@ public class ItemToolTip : MonoBehaviour
         {
             ItemName.key => "信箱钥匙",
             ItemName.ticket => "一张船票",
+            ItemName.apple => "苹苹苹果",
+            ItemName.blueberry => "蓝蓝蓝莓",
+            ItemName.match => "火火火柴",
             _ => ""
         };
     }

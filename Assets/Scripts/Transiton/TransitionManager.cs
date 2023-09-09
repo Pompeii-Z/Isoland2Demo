@@ -72,6 +72,9 @@ public class TransitionManager : Singleton<TransitionManager>, ISaveable
         //多个场景时，设置需要的为激活场景
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(SceneManager.sceneCount - 1));  //Build Settings中 场景索引从0开始
 
+        if (From == "Menu")
+            EventHandler.CallMenuAfterSceneLoadedEvent();
+
         EventHandler.CallAfterSceneLoadedEvent();
         yield return Fade(0);
     }

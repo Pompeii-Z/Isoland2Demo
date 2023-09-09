@@ -3,7 +3,7 @@ using System.Collections.Generic;
 /// <summary>
 /// 逻辑部分
 /// </summary>
-public class InventoryManager : Singleton<InventoryManager>,ISaveable
+public class InventoryManager : Singleton<InventoryManager>, ISaveable
 {
     public ItemDataList_SO itemData;
 
@@ -21,7 +21,7 @@ public class InventoryManager : Singleton<InventoryManager>,ISaveable
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
         EventHandler.ChangeItemEvent += OnChangeItemEvent;
-        EventHandler.AfterSceneLoadedEvent += OnAfterSceneLoadedEvent;
+        EventHandler.MenuAfterSceneLoadedEvent += OnMenuAfterSceneLoadedEvent;
         EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
@@ -29,7 +29,7 @@ public class InventoryManager : Singleton<InventoryManager>,ISaveable
     {
         EventHandler.ItemUsedEvent -= OnItemUsedEvent;
         EventHandler.ChangeItemEvent -= OnChangeItemEvent;
-        EventHandler.AfterSceneLoadedEvent -= OnAfterSceneLoadedEvent;
+        EventHandler.MenuAfterSceneLoadedEvent -= OnMenuAfterSceneLoadedEvent;
         EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
     }
 
@@ -43,9 +43,9 @@ public class InventoryManager : Singleton<InventoryManager>,ISaveable
     }
 
     /// <summary>
-    /// 场景加载之后
+    /// 从Menu场景加载之后
     /// </summary>
-    private void OnAfterSceneLoadedEvent()
+    private void OnMenuAfterSceneLoadedEvent()
     {
         if (itemList.Count == 0)
             EventHandler.CallUpdateUIEvent(null, -1);
@@ -53,7 +53,7 @@ public class InventoryManager : Singleton<InventoryManager>,ISaveable
         {
             for (int i = 0; i < itemList.Count; i++)
             {
-                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
+               EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]), i);
             }
         }
     }

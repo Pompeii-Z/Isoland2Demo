@@ -1,6 +1,9 @@
 using DG.Tweening;
 using UnityEngine;
 
+/// <summary>
+/// H2A齿轮点击动画
+/// </summary>
 public class H2AReset : Interactive
 {
     private Transform gearSprite;

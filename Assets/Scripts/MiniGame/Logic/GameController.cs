@@ -13,6 +13,9 @@ public class GameController : Singleton<GameController>
     public LineRenderer linePrefab;
     public Ball ballPrefab;
 
+    /// <summary>
+    /// Holder位置
+    /// </summary>
     public Transform[] holderTransforms;        //所有的位置(7个)
 
     private void Start()

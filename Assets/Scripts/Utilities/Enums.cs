@@ -1,6 +1,6 @@
 public enum ItemName
 {
-    none, key, ticket
+    none, key, ticket, apple, blueberry, match
 }
 
 public enum GameState
