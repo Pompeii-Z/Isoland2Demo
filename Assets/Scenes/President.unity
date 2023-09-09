@@ -585,7 +585,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u4F60\u662F\u8C01\uFF1F\u7B97\u4E86\uFF0C\u6211\u4E5F\u4E0D\u5728\u4E4E\u4F60\u662F\u8C01\u3002\u4F60\u80FD\u5E2E\u6211\u627E\u5230\u4FE1\u7BB1\u7684\u94A5\u5319\u5417\uFF1F"
+  m_Text: 
 --- !u!222 &604397556
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -726,6 +726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panel: {fileID: 2110299224}
   dialogueText: {fileID: 604397555}
+  typingSpeed: 0.1
 --- !u!1 &814402775
 GameObject:
   m_ObjectHideFlags: 0
